@@ -167,6 +167,9 @@ function placeDetailsHtml(p) {
       </label>
     </div>
 
+    ${p.approx ? `<p class="hint warn">📍 الموقع على الخريطة تقريبي. زر «فتح في Google Maps» يبحث عن المكان نفسه، ويمكنك تصحيح الموقع من «تعديل».</p>` : ''}
+    ${!hasCoords(p) ? `<p class="hint warn">📍 لم يُحدَّد موقع هذا المكان على الخريطة. زر «فتح في Google Maps» يعرض أقرب الفروع.</p>` : ''}
+
     <dl class="info">
       ${row('العنوان', esc(p.address), 'dir="auto"')}
       ${row('ساعات العمل', esc(p.hours))}
@@ -422,6 +425,8 @@ export function openPlaceForm(id, defaults = {}) {
           mapsUrl: f.mapsUrl.value.trim(),
           lat: c ? c.lat : null,
           lng: c ? c.lng : null,
+          // إذا غيّرتِ الموقع يصبح دقيقاً
+          approx: !!existing?.approx && !!c && c.lat === existing.lat && c.lng === existing.lng,
           hours: f.hours.value.trim(),
           price: f.price.value.trim(),
           notes: f.notes.value.trim(),

@@ -41,6 +41,8 @@ function normalizePlace(p) {
     lat: typeof p.lat === 'number' ? p.lat : null,
     lng: typeof p.lng === 'number' ? p.lng : null,
     mapsUrl: p.mapsUrl || '',
+    mapsQuery: p.mapsQuery || '',
+    approx: !!p.approx, // الإحداثيات تقريبية
     hours: p.hours || '',
     price: p.price || '',
     notes: p.notes || '',
@@ -74,6 +76,12 @@ function fromSeed() {
 /** عند تحديث ملف البيانات (رقم version جديد) تُضاف العناصر الجديدة فقط */
 function mergeSeed() {
   if (state.seedVersion === seed.version) return;
+  // العناصر المحذوفة من ملف البيانات تُحذف أيضاً من المتصفح
+  const removed = new Set(seed.removed || []);
+  state.places
+    .filter((p) => removed.has(p.id))
+    .forEach((p) => p.images.forEach(removeImage));
+  state.places = state.places.filter((p) => !removed.has(p.id));
   const deleted = new Set(state.deletedSeedIds || []);
   for (const kind of ['types', 'districts', 'places']) {
     const have = new Set(state[kind].map((x) => x.id));

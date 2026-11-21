@@ -67,14 +67,20 @@ export function hasCoords(place) {
   return validCoords(place?.lat, place?.lng);
 }
 
+const searchUrl = (q) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+
+/** mapsQuery: اسم للبحث في Google Maps، يُستخدم عندما يكون الموقع تقريبياً أو للمكان فروع كثيرة */
 export function mapsLink(place) {
   if (place.mapsUrl) return place.mapsUrl;
+  if (place.mapsQuery) return searchUrl(place.mapsQuery);
   if (hasCoords(place)) return `https://www.google.com/maps/search/?api=1&query=${place.lat},${place.lng}`;
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${place.nameLocal || place.name} Istanbul`)}`;
 }
 
 export function directionsLink(place) {
-  const dest = hasCoords(place) ? `${place.lat},${place.lng}` : encodeURIComponent(`${place.nameLocal || place.name} Istanbul`);
+  const dest = place.mapsQuery && (place.approx || !hasCoords(place))
+    ? encodeURIComponent(place.mapsQuery)
+    : hasCoords(place) ? `${place.lat},${place.lng}` : encodeURIComponent(`${place.nameLocal || place.name} Istanbul`);
   return `https://www.google.com/maps/dir/?api=1&destination=${dest}&travelmode=transit`;
 }
 

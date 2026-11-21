@@ -4,10 +4,17 @@
 // عند إضافة أماكن جديدة هنا لاحقاً: غيّري رقم `version`، وسيضيف الموقع
 // الأماكن الجديدة فقط دون أن يمسح تعديلاتك أو صورك أو علامات «زرته».
 //
-// ملاحظة: الأماكن الحالية بيانات تجريبية بإحداثيات تقريبية، استبدليها ببياناتك.
+// الأماكن التي تحمل approx: true إحداثياتها تقريبية، و mapsQuery هو اسم البحث
+// الذي يفتح المكان الصحيح في Google Maps.
 
 export default {
-  version: 1,
+  version: 2,
+
+  // أماكن حُذفت من الملف: تُحذف أيضاً من بيانات المتصفح عند التحديث
+  removed: [
+    'seed-ayasofya', 'seed-bluemosque', 'seed-cistern', 'seed-topkapi',
+    'seed-suleymaniye', 'seed-taksim', 'seed-dolmabahce', 'seed-maiden', 'seed-camlica',
+  ],
 
   trip: {
     title: 'رحلتي إلى إسطنبول',
@@ -21,6 +28,8 @@ export default {
     { id: 'restaurant', label: 'مطعم', icon: '🍽️', color: '#d9762b' },
     { id: 'cafe', label: 'مقهى وحلويات', icon: '☕', color: '#8a5a3c' },
     { id: 'shop', label: 'محل وسوق', icon: '🛍️', color: '#8a3f8f' },
+    { id: 'mall', label: 'مول ومركز تسوق', icon: '🏬', color: '#be185d' },
+    { id: 'area', label: 'منطقة للتجول', icon: '🏘️', color: '#a16207' },
     { id: 'park', label: 'حديقة', icon: '🌳', color: '#2f7d4a' },
     { id: 'hotel', label: 'فندق', icon: '🏨', color: '#1d4e89' },
     { id: 'station', label: 'محطة مواصلات', icon: '🚉', color: '#13867a' },
@@ -76,45 +85,34 @@ export default {
       description: 'حي هادئ ومحافظ على البوسفور، ومنه يُرى برج الفتاة.',
       transportNotes: 'مرمراي من Sirkeci (دقائق قليلة تحت البحر)، أو عبّارة من أمين أونو وبشكتاش.',
     },
+    {
+      id: 'sisli',
+      name: 'شيشلي (حربية ونيشانتاشي)',
+      nameTr: 'Şişli',
+      side: 'europe',
+      description: 'منطقة راقية شمال تقسيم، فيها نيشانتاشي بمحلاتها ومطاعمها.',
+      transportNotes: 'مترو M2 (محطة Osmanbey)، وحربية على بعد دقائق مشياً من ميدان تقسيم.',
+    },
+    {
+      id: 'sariyer',
+      name: 'ساريير (أيازآغا)',
+      nameTr: 'Sarıyer',
+      side: 'europe',
+      description: 'منطقة حديثة شمال المدينة، فيها مول Vadistanbul.',
+      transportNotes: 'مترو M2 إلى Seyrantepe، ثم قطار Havaray المعلّق F3 إلى داخل Vadistanbul (حوالي 7 دقائق).',
+    },
+    {
+      id: 'eyupsultan',
+      name: 'إيوب سلطان (قرب المطار)',
+      nameTr: 'Eyüpsultan / İhsaniye',
+      side: 'europe',
+      description: 'منطقة بعيدة في الشمال قرب مطار إسطنبول، فيها Florentia Village.',
+      transportNotes: 'مترو M11 (خط المطار) من Gayrettepe إلى محطة İhsaniye. الرحلة طويلة، فخصصي لها نصف يوم.',
+    },
   ],
 
   places: [
     // ——— السلطان أحمد ———
-    {
-      id: 'seed-ayasofya', name: 'آيا صوفيا', nameLocal: 'Ayasofya-i Kebir Camii',
-      typeId: 'attraction', districtId: 'sultanahmet',
-      address: 'Sultan Ahmet, Ayasofya Meydanı No:1, Fatih',
-      lat: 41.00858, lng: 28.98017,
-      hours: '', notes: 'تُغلق للزوار وقت الصلاة.',
-      transport: { mode: 'tram', line: 'T1', station: 'Sultanahmet', walkMinutes: 4, note: '' },
-      day: 1,
-    },
-    {
-      id: 'seed-bluemosque', name: 'الجامع الأزرق (جامع السلطان أحمد)', nameLocal: 'Sultan Ahmet Camii',
-      typeId: 'attraction', districtId: 'sultanahmet',
-      address: 'Sultan Ahmet, Atmeydanı Cd. No:7, Fatih',
-      lat: 41.00539, lng: 28.97680,
-      notes: 'يُطلب لباس محتشم، وتتوفر أغطية للرأس عند المدخل.',
-      transport: { mode: 'tram', line: 'T1', station: 'Sultanahmet', walkMinutes: 4, note: '' },
-      day: 1,
-    },
-    {
-      id: 'seed-cistern', name: 'صهريج البازيليك', nameLocal: 'Yerebatan Sarnıcı',
-      typeId: 'attraction', districtId: 'sultanahmet',
-      address: 'Alemdar, Yerebatan Cd. 1/3, Fatih',
-      lat: 41.00838, lng: 28.97792,
-      transport: { mode: 'tram', line: 'T1', station: 'Sultanahmet', walkMinutes: 2, note: '' },
-      day: 1,
-    },
-    {
-      id: 'seed-topkapi', name: 'قصر توبكابي', nameLocal: 'Topkapı Sarayı',
-      typeId: 'attraction', districtId: 'sultanahmet',
-      address: 'Cankurtaran, 34122 Fatih',
-      lat: 41.01153, lng: 28.98337,
-      notes: 'يُغلق يوم الثلاثاء (تأكدي من المواعيد قبل الذهاب).',
-      transport: { mode: 'tram', line: 'T1', station: 'Gülhane', walkMinutes: 8, note: '' },
-      day: 2,
-    },
     {
       id: 'seed-gulhane', name: 'حديقة كلخانة', nameLocal: 'Gülhane Parkı',
       typeId: 'park', districtId: 'sultanahmet',
@@ -156,14 +154,6 @@ export default {
       day: 3,
     },
     {
-      id: 'seed-suleymaniye', name: 'جامع السليمانية', nameLocal: 'Süleymaniye Camii',
-      typeId: 'attraction', districtId: 'eminonu',
-      address: 'Süleymaniye, Prof. Sıddık Sami Onar Cd. No:1, Fatih',
-      lat: 41.01608, lng: 28.96398,
-      transport: { mode: 'tram', line: 'T1', station: 'Beyazıt-Kapalıçarşı', walkMinutes: 12, note: 'الطريق صعود خفيف.' },
-      day: 3,
-    },
-    {
       id: 'seed-st-eminonu-ferry', name: 'رصيف عبّارات أمين أونو', nameLocal: 'Eminönü İskelesi',
       typeId: 'station', districtId: 'eminonu',
       lat: 41.01767, lng: 28.97389,
@@ -187,13 +177,6 @@ export default {
       day: 4,
     },
     {
-      id: 'seed-taksim', name: 'ميدان تقسيم', nameLocal: 'Taksim Meydanı',
-      typeId: 'attraction', districtId: 'beyoglu',
-      lat: 41.03700, lng: 28.98500,
-      transport: { mode: 'metro', line: 'M2', station: 'Taksim', walkMinutes: 1, note: '' },
-      day: 4,
-    },
-    {
       id: 'seed-karakoy-gulluoglu', name: 'كاراكوي غُلّو أوغلو (بقلاوة)', nameLocal: 'Karaköy Güllüoğlu',
       typeId: 'cafe', districtId: 'beyoglu',
       address: 'Kemankeş Karamustafa Paşa, Rıhtım Cd., Beyoğlu',
@@ -203,15 +186,6 @@ export default {
     },
 
     // ——— بشكتاش ———
-    {
-      id: 'seed-dolmabahce', name: 'قصر دولمة بهجة', nameLocal: 'Dolmabahçe Sarayı',
-      typeId: 'attraction', districtId: 'besiktas',
-      address: 'Vişnezade, Dolmabahçe Cd., Beşiktaş',
-      lat: 41.03914, lng: 29.00057,
-      notes: 'يُغلق يوم الاثنين.',
-      transport: { mode: 'tram', line: 'T1', station: 'Kabataş', walkMinutes: 8, note: '' },
-      day: 4,
-    },
     {
       id: 'seed-yildiz', name: 'حديقة يلدز', nameLocal: 'Yıldız Parkı',
       typeId: 'park', districtId: 'besiktas',
@@ -242,18 +216,89 @@ export default {
     },
 
     // ——— أسكدار ———
+
+    // ——— إضافات ———
     {
-      id: 'seed-maiden', name: 'برج الفتاة', nameLocal: 'Kız Kulesi',
-      typeId: 'attraction', districtId: 'uskudar',
-      lat: 41.02112, lng: 29.00412,
-      transport: { mode: 'ferry', line: '', station: 'Salacak', walkMinutes: 2, note: 'قارب صغير من رصيف Salacak إلى البرج.' },
-      day: 5,
+      id: 'seed-galataport', name: 'غلطة بورت', nameLocal: 'Galataport İstanbul',
+      typeId: 'mall', districtId: 'beyoglu',
+      address: 'Kılıçali Paşa, Meclis-i Mebusan Cd., Beyoğlu',
+      lat: 41.02680, lng: 28.98380, approx: true, mapsQuery: 'Galataport İstanbul',
+      notes: 'منطقة تسوق ومطاعم على البوسفور بين كاراكوي وتوفانه.',
+      transport: { mode: 'tram', line: 'T1', station: 'Tophane', walkMinutes: 3, note: 'أو محطة Karaköy.' },
     },
     {
-      id: 'seed-camlica', name: 'جامع تشامليجا', nameLocal: 'Büyük Çamlıca Camii',
-      typeId: 'attraction', districtId: 'uskudar',
-      lat: 41.02750, lng: 29.06850,
-      transport: { mode: 'metro', line: 'M5', station: 'Kısıklı', walkMinutes: 15, note: '' },
+      id: 'seed-tersane', name: 'ترسانة إسطنبول (مول)', nameLocal: 'Tersane İstanbul',
+      typeId: 'mall', districtId: 'beyoglu',
+      address: 'Camiikebir, Taşkızak Tersanesi Cd., Beyoğlu',
+      lat: 41.03450, lng: 28.96050, approx: true, mapsQuery: 'Tersane İstanbul',
+      notes: 'مجمع جديد على الخليج الذهبي في مبنى ترسانة السفن القديمة.',
+      transport: { mode: 'ferry', line: 'Haliç', station: 'Hasköy', walkMinutes: 5, note: 'عبّارات خط الخليج الذهبي من أمين أونو وكاراكوي، أو تاكسي من تقسيم.' },
+    },
+    {
+      id: 'seed-zorlu', name: 'زورلو سنتر', nameLocal: 'Zorlu Center',
+      typeId: 'mall', districtId: 'besiktas',
+      address: 'Levazım, Koru Sokağı No:2, Beşiktaş',
+      lat: 41.06700, lng: 29.01700, approx: true, mapsQuery: 'Zorlu Center',
+      transport: { mode: 'metro', line: 'M2', station: 'Gayrettepe', walkMinutes: 12, note: 'أو متروباص Zincirlikuyu.' },
+    },
+    {
+      id: 'seed-kofteci-yusuf', name: 'مطعم كفتجي يوسف', nameLocal: 'Köfteci Yusuf',
+      typeId: 'restaurant', districtId: 'besiktas',
+      lat: null, lng: null, mapsQuery: 'Köfteci Yusuf',
+      notes: 'سلسلة كفتة مشهورة لها فروع كثيرة. زر Google Maps يعرض أقرب فرع لموقعك.',
+    },
+    {
+      id: 'seed-boac', name: 'BOAC (قهوة و Soft Serve)', nameLocal: 'BOAC Soft Serve',
+      typeId: 'cafe', districtId: 'kadikoy',
+      address: 'General Asım Gündüz Cd., Kadıköy',
+      lat: 40.98800, lng: 29.03050, approx: true, mapsQuery: 'BOAC Soft Serve General Asım Gündüz Kadıköy',
+      hours: '11:00 - 24:00',
+      notes: 'مشهور بالتيراميسو والآيس كريم الطري.',
+      transport: { mode: 'ferry', line: '', station: 'Kadıköy İskelesi', walkMinutes: 15, note: 'أو ترام Moda الصغير.' },
+    },
+    {
+      id: 'seed-kuzguncuk', name: 'قوزغونجوك', nameLocal: 'Kuzguncuk',
+      typeId: 'area', districtId: 'uskudar',
+      lat: 41.03680, lng: 29.03020, approx: true, mapsQuery: 'Kuzguncuk Üsküdar',
+      notes: 'حي صغير ملوّن على البوسفور بيوته خشبية قديمة، ومقاهيه هادئة.',
+      transport: { mode: 'bus', line: '15', station: 'Kuzguncuk', walkMinutes: 2, note: 'باصات الساحل من ميدان أسكدار (حوالي 10 دقائق)، أو تاكسي.' },
+    },
+    {
+      id: 'seed-icadiye', name: 'شارع إيجادية', nameLocal: 'İcadiye Caddesi',
+      typeId: 'area', districtId: 'uskudar',
+      lat: 41.03500, lng: 29.03250, approx: true, mapsQuery: 'İcadiye Caddesi Kuzguncuk',
+      notes: 'الشارع الرئيسي في قوزغونجوك، صاعد من الساحل، فيه البيوت الملونة والمقاهي.',
+      transport: { mode: 'walk', line: '', station: 'Kuzguncuk', walkMinutes: 3, note: 'يمكن زيارته مع قوزغونجوك في نفس المشوار.' },
+    },
+    {
+      id: 'seed-huqqabaz-garden', name: 'مطعم حُقّه باز غاردن', nameLocal: 'HuQQabaz Garden',
+      typeId: 'restaurant', districtId: 'uskudar',
+      address: 'Paşalimanı, Üsküdar',
+      lat: 41.03100, lng: 29.01950, approx: true, mapsQuery: 'HuQQabaz Garden Paşalimanı',
+      notes: 'في قصر تاريخي على البوسفور. يُفضَّل الحجز.',
+      transport: { mode: 'bus', line: '', station: 'Paşalimanı', walkMinutes: 2, note: 'قريب من ميدان أسكدار (تاكسي 5 دقائق)، ويمكن ضمه لمشوار قوزغونجوك.' },
+    },
+    {
+      id: 'seed-zoyas-house', name: "مطعم Zoya's House", nameLocal: "Zoya's House",
+      typeId: 'restaurant', districtId: 'sisli',
+      address: 'Harbiye, Şişli',
+      lat: 41.04700, lng: 28.99050, approx: true, mapsQuery: "Zoya's House Harbiye",
+      transport: { mode: 'metro', line: 'M2', station: 'Osmanbey', walkMinutes: 10, note: 'أو مشياً من ميدان تقسيم.' },
+    },
+    {
+      id: 'seed-vadistanbul', name: 'فادي إسطنبول', nameLocal: 'Vadistanbul AVM',
+      typeId: 'mall', districtId: 'sariyer',
+      address: 'Ayazağa, Azerbaycan Cd. No:3/C, Sarıyer',
+      lat: 41.10720, lng: 28.98830, mapsQuery: 'Vadistanbul AVM',
+      transport: { mode: 'metro', line: 'M2 + F3', station: 'Seyrantepe', walkMinutes: 0, note: 'من Seyrantepe اركبي Havaray F3، ومحطته الأخيرة داخل المول.' },
+    },
+    {
+      id: 'seed-florentia', name: 'فلورنتيا فيليج', nameLocal: 'Florentia Village İstanbul',
+      typeId: 'mall', districtId: 'eyupsultan',
+      address: 'İhsaniye, İstanbul Cd. No:17, Eyüpsultan',
+      lat: 41.24280, lng: 28.80890, approx: true, mapsQuery: 'Florentia Village İstanbul',
+      notes: 'أول أوتلت للماركات الفاخرة في تركيا، قرب مطار إسطنبول.',
+      transport: { mode: 'metro', line: 'M11', station: 'İhsaniye', walkMinutes: 3, note: 'خط مترو المطار، والمحطة عند المدخل تقريباً.' },
     },
   ],
 };
