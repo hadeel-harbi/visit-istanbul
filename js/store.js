@@ -86,12 +86,14 @@ function mergeSeed() {
     .forEach((p) => p.images.forEach(removeImage));
   state.places = state.places.filter((p) => !removed.has(p.id));
 
-  // إكمال حقول البحث في الخريطة لأماكن الملف إذا كانت ناقصة
+  // إكمال الحقول الفارغة لأماكن الملف (بحث الخريطة، العنوان، الملاحظات...)
   const seedById = new Map(seed.places.map((p) => [p.id, p]));
   for (const p of state.places) {
     const sp = seedById.get(p.id);
     if (!sp) continue;
-    if (!p.mapsQuery && sp.mapsQuery) p.mapsQuery = sp.mapsQuery;
+    for (const f of ['mapsQuery', 'nameLocal', 'address', 'hours', 'notes']) {
+      if (!p[f] && sp[f]) p[f] = sp[f];
+    }
     if (sp.approx && !p.approx && p.lat === sp.lat && p.lng === sp.lng) p.approx = true;
   }
 

@@ -8,7 +8,7 @@
 // الذي يفتح المكان الصحيح في Google Maps.
 
 export default {
-  version: 2,
+  version: 3,
 
   // أماكن حُذفت من الملف: تُحذف أيضاً من بيانات المتصفح عند التحديث
   removed: [
@@ -109,6 +109,14 @@ export default {
       description: 'منطقة بعيدة في الشمال قرب مطار إسطنبول، فيها Florentia Village.',
       transportNotes: 'مترو M11 (خط المطار) من Gayrettepe إلى محطة İhsaniye. الرحلة طويلة، فخصصي لها نصف يوم.',
     },
+    {
+      id: 'balat',
+      name: 'بلاط (الفاتح)',
+      nameTr: 'Balat',
+      side: 'europe',
+      description: 'حي تاريخي على الخليج الذهبي، يشتهر ببيوته الملونة وشوارعه الصاعدة ومقاهيه الصغيرة.',
+      transportNotes: 'ترام T5 من أمين أونو (محطة Balat أو Fener)، أو باصات من أمين أونو، أو عبّارة خط الخليج الذهبي إلى رصيف Balat.',
+    },
   ],
 
   places: [
@@ -197,7 +205,8 @@ export default {
     {
       id: 'seed-kadikoy-market', name: 'سوق قاضي كوي', nameLocal: 'Kadıköy Çarşı',
       typeId: 'shop', districtId: 'kadikoy',
-      lat: 40.99060, lng: 29.02630,
+      lat: 40.99060, lng: 29.02630, approx: true, mapsQuery: 'Kadıköy Çarşı',
+      notes: 'بازار شعبي فيه محلات طعام وتوابل وأسماك وحلويات.',
       transport: { mode: 'ferry', line: '', station: 'Kadıköy İskelesi', walkMinutes: 5, note: 'عبّارة من أمين أونو.' },
       day: 5,
     },
@@ -299,6 +308,32 @@ export default {
       lat: 41.24280, lng: 28.80890, approx: true, mapsQuery: 'Florentia Village İstanbul',
       notes: 'أول أوتلت للماركات الفاخرة في تركيا، قرب مطار إسطنبول.',
       transport: { mode: 'metro', line: 'M11', station: 'İhsaniye', walkMinutes: 3, note: 'خط مترو المطار، والمحطة عند المدخل تقريباً.' },
+    },
+    {
+      id: 'seed-le-petit-pera', name: 'لو بوتي بيرا كافيه', nameLocal: 'Le Petit Pera Cafe',
+      typeId: 'cafe', districtId: 'beyoglu',
+      address: 'Kemankeş Karamustafa Paşa, Ali Paşa Değirmeni Sk. No:4, Karaköy',
+      lat: 41.02500, lng: 28.97750, approx: true, mapsQuery: 'Le Petit Pera Cafe Karaköy',
+      hours: '10:00 - 23:00',
+      notes: 'مشهور بتشيز كيك سان سباستيان والبراونيز.',
+      transport: { mode: 'tram', line: 'T1', station: 'Karaköy', walkMinutes: 5, note: '' },
+    },
+    {
+      id: 'seed-siftah', name: 'مطعم سفتاه كباب كاراكوي', nameLocal: 'Siftah Kebap Karaköy',
+      typeId: 'restaurant', districtId: 'beyoglu',
+      address: 'Mumhane Cd. No:56, Karaköy, Beyoğlu',
+      lat: 41.02470, lng: 28.98000, approx: true, mapsQuery: 'Siftah Kebap Karaköy',
+      hours: '10:00 - 02:00',
+      notes: 'كباب على الطريقة العنتابية، والمطعم صغير وطاولاته قليلة.',
+      transport: { mode: 'tram', line: 'T1', station: 'Karaköy', walkMinutes: 4, note: 'قريب من غلطة بورت.' },
+    },
+    {
+      id: 'seed-balat-houses', name: 'بيوت بلاط الملونة', nameLocal: 'Balat Renkli Evler (Kiremit Cd.)',
+      typeId: 'attraction', districtId: 'balat',
+      address: 'Kiremit Cd., Balat, Fatih',
+      lat: 41.02960, lng: 28.94760, approx: true, mapsQuery: 'Balat colorful houses Kiremit Caddesi',
+      notes: 'أجمل وقت للتصوير صباح أيام الأسبوع (9 - 11). البيوت مسكونة، فصوّري الشارع لا النوافذ.',
+      transport: { mode: 'tram', line: 'T5', station: 'Balat', walkMinutes: 5, note: 'الطريق من المحطة صعود.' },
     },
   ],
 };
