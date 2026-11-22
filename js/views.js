@@ -450,6 +450,7 @@ export function settingsView() {
           مستخدم ${formatBytes(usage.total)} من حوالي ${formatBytes(store.STORAGE_LIMIT)} (${pct}%) ·
           البيانات ${formatBytes(usage.data)} · الصور (${usage.count}) ${formatBytes(usage.images)}
         </p>
+        <p class="muted small">إصدار البيانات في هذا المتصفح: ${store.getState().seedVersion}</p>
         <p class="hint">البيانات محفوظة في هذا المتصفح فقط. إذا مسحتِ بيانات المتصفح أو فتحتِ الموقع من جهاز آخر فلن تظهر تعديلاتك.</p>
       </section>
 

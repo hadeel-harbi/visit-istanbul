@@ -73,15 +73,30 @@ function fromSeed() {
   return s;
 }
 
-/** عند تحديث ملف البيانات (رقم version جديد) تُضاف العناصر الجديدة فقط */
+/**
+ * مزامنة بيانات المتصفح مع ملف البيانات.
+ * الحذف والإكمال يعملان في كل مرة (وليس مرة واحدة فقط)، حتى لا تضيع التحديثات
+ * إذا شغّل المتصفح نسخة قديمة من الكود من الذاكرة المؤقتة.
+ */
 function mergeSeed() {
-  if (state.seedVersion === seed.version) return;
   // العناصر المحذوفة من ملف البيانات تُحذف أيضاً من المتصفح
   const removed = new Set(seed.removed || []);
   state.places
     .filter((p) => removed.has(p.id))
     .forEach((p) => p.images.forEach(removeImage));
   state.places = state.places.filter((p) => !removed.has(p.id));
+
+  // إكمال حقول البحث في الخريطة لأماكن الملف إذا كانت ناقصة
+  const seedById = new Map(seed.places.map((p) => [p.id, p]));
+  for (const p of state.places) {
+    const sp = seedById.get(p.id);
+    if (!sp) continue;
+    if (!p.mapsQuery && sp.mapsQuery) p.mapsQuery = sp.mapsQuery;
+    if (sp.approx && !p.approx && p.lat === sp.lat && p.lng === sp.lng) p.approx = true;
+  }
+
+  // إضافة العناصر الجديدة فقط عند تغيّر رقم الإصدار
+  if (state.seedVersion === seed.version) return;
   const deleted = new Set(state.deletedSeedIds || []);
   for (const kind of ['types', 'districts', 'places']) {
     const have = new Set(state[kind].map((x) => x.id));
