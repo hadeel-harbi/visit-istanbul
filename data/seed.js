@@ -8,12 +8,13 @@
 // الذي يفتح المكان الصحيح في Google Maps.
 
 export default {
-  version: 3,
+  version: 4,
 
   // أماكن حُذفت من الملف: تُحذف أيضاً من بيانات المتصفح عند التحديث
   removed: [
     'seed-ayasofya', 'seed-bluemosque', 'seed-cistern', 'seed-topkapi',
     'seed-suleymaniye', 'seed-taksim', 'seed-dolmabahce', 'seed-maiden', 'seed-camlica',
+    'seed-hotel', // الفندق المثال، استُبدل بالفنادق الحقيقية
   ],
 
   trip: {
@@ -130,13 +131,6 @@ export default {
       day: 2,
     },
     {
-      id: 'seed-hotel', name: 'فندقي (مثال، عدّليه)', nameLocal: '',
-      typeId: 'hotel', districtId: 'sultanahmet',
-      address: '', lat: 41.00650, lng: 28.97200,
-      notes: 'ضعي هنا اسم الفندق ورقم الحجز ووقت تسجيل الدخول.',
-      transport: { mode: 'tram', line: 'T1', station: 'Sultanahmet', walkMinutes: 6, note: '' },
-    },
-    {
       id: 'seed-st-sultanahmet', name: 'محطة ترام السلطان أحمد', nameLocal: 'Sultanahmet (T1)',
       typeId: 'station', districtId: 'sultanahmet',
       lat: 41.00792, lng: 28.97546,
@@ -225,6 +219,32 @@ export default {
     },
 
     // ——— أسكدار ———
+
+    // ——— الفنادق ———
+    {
+      id: 'seed-hotel-garlon', name: 'جارلون ريزيدنس', nameLocal: 'Garlon Residence',
+      typeId: 'hotel', districtId: 'beyoglu',
+      address: 'Çukur Mah., Tarlabaşı Blv. No:150-170 D:31 (Taksim 360), Beyoğlu',
+      lat: 41.03720, lng: 28.97750, approx: true, mapsQuery: 'Garlon Residence Taksim 360',
+      notes: 'داخل مجمع Taksim 360، على بعد حوالي 15 دقيقة مشياً من ميدان تقسيم وشارع الاستقلال.',
+      transport: { mode: 'metro', line: 'M2', station: 'Taksim', walkMinutes: 15, note: 'أو تاكسي قصير إلى ميدان تقسيم.' },
+    },
+    {
+      id: 'seed-hotel-galata-m84', name: 'غالاتا إم 84', nameLocal: 'Galata M84',
+      typeId: 'hotel', districtId: 'beyoglu',
+      address: 'Evliya Çelebi Mah., Meşrutiyet Cd. No:84, Şişhane, Beyoğlu',
+      lat: 41.03000, lng: 28.97380, approx: true, mapsQuery: 'Galata M84 Meşrutiyet Caddesi 84',
+      notes: 'قريب من برج غلطة وشارع الاستقلال.',
+      transport: { mode: 'metro', line: 'M2', station: 'Şişhane', walkMinutes: 3, note: '' },
+    },
+    {
+      id: 'seed-hotel-pera-capitol', name: 'فندق بيرا كابيتول', nameLocal: 'Hotel Pera Capitol - Taksim & İstiklal',
+      typeId: 'hotel', districtId: 'beyoglu',
+      address: 'Asmalı Mescit Sk. No:24, Tepebaşı, Beyoğlu',
+      lat: 41.03120, lng: 28.97470, approx: true, mapsQuery: 'Pera Capitol Asmalı Mescit',
+      notes: 'دقيقتان مشياً إلى شارع الاستقلال.',
+      transport: { mode: 'metro', line: 'M2', station: 'Şişhane', walkMinutes: 5, note: '' },
+    },
 
     // ——— إضافات ———
     {
